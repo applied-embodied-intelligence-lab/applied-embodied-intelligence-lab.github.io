@@ -499,6 +499,57 @@ a.sem-title:hover{ color:var(--copper); }
 .sem-title-missing{ color:var(--steel); }
 .sem-meta{ margin-top:6px; display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; color:var(--steel); }
 
+/* ---------- NOTICE POPUP ---------- */
+/* 사용: index.html 전용 — 첫 화면 공지 팝업 (학부연구원생 모집 등) */
+.notice-box{
+  position:fixed; z-index:100; top:96px; left:40px;
+  width:min(520px, calc(100vw - 32px)); max-height:calc(100vh - 120px);
+  display:flex; flex-direction:column;
+  background:var(--paper); color:var(--navy);
+  border:1px solid var(--navy);
+  box-shadow:0 18px 50px rgba(0,0,0,0.4);
+}
+.notice-box[hidden]{ display:none; }
+.notice-titlebar{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--navy); padding:8px 8px 8px 16px;
+  cursor:move; user-select:none; touch-action:none;
+  border-bottom:3px solid var(--copper);
+}
+.notice-box.dragging{ opacity:0.92; }
+.notice-titlebar .notice-tag{ margin:0; color:var(--paper); }
+.notice-x{
+  background:none; border:none; font-size:24px; line-height:1; color:var(--paper);
+  cursor:pointer; padding:0 8px;
+}
+.notice-x:hover{ color:var(--copper); }
+.notice-scroll{ overflow-y:auto; padding:24px 28px 8px; }
+.notice-tag{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; }
+.notice-box h2{ font-family:'Space Grotesk', sans-serif; font-size:26px; font-weight:700; margin-bottom:6px; }
+.notice-lead{ font-size:15px; font-weight:600; color:var(--steel); margin-bottom:18px; }
+.notice-body{ font-size:13.5px; line-height:1.75; }
+.notice-body h3{ font-size:13px; font-weight:700; margin:18px 0 6px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+.notice-body ul{ padding-left:18px; }
+.notice-areas{ list-style:none; padding-left:0 !important; }
+.notice-areas b{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--copper); display:inline-block; min-width:64px; }
+.notice-chips{ display:flex; gap:8px; flex-wrap:wrap; }
+.notice-chips span{ font-family:'JetBrains Mono', monospace; font-size:11.5px; border:1px solid var(--steel); padding:5px 11px; color:var(--steel); }
+.notice-contact{ margin-top:20px; padding:14px 16px; background:#fff; border:1px solid var(--line); font-size:13px; }
+.notice-contact a{ color:var(--copper); text-decoration:none; }
+.notice-contact a:hover{ text-decoration:underline; }
+.notice-actions{ display:flex; justify-content:space-between; gap:10px; padding:14px 28px 18px; border-top:1px solid var(--line); }
+.notice-btn, .notice-btn-ghost{ font-family:'JetBrains Mono', monospace; font-size:12px; padding:10px 18px; cursor:pointer; }
+.notice-btn{ background:var(--navy); color:var(--paper); border:1px solid var(--navy); }
+.notice-btn:hover{ background:var(--steel); border-color:var(--steel); }
+.notice-btn-ghost{ background:none; color:var(--steel); border:1px solid var(--line); }
+.notice-btn-ghost:hover{ border-color:var(--copper); color:var(--copper); }
+@media (max-width:600px){
+  .notice-box{ top:72px; left:16px; }
+  .notice-scroll{ padding:20px 18px 8px; }
+  .notice-actions{ padding:12px 18px 14px; }
+  .notice-box h2{ font-size:22px; }
+}
+
 /* ---------- FOOTER ---------- */
 /* 사용: 전체 페이지 공통 */
 footer{

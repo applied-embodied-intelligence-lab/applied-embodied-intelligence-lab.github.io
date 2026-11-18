@@ -176,5 +176,106 @@
   <a class="contact-link" href="members.html">교수 소개 및 문의 →</a>
 </footer>
 
+<!-- ================= NOTICE POPUP (학부연구원생 모집) =================
+     공고를 내리려면 아래 NOTICE_ENABLED 값을 false로 바꾸세요. -->
+<div class="notice-box" id="noticePopup" role="dialog" aria-labelledby="noticeTitle" hidden>
+  <div class="notice-titlebar" data-notice-drag>
+    <span class="notice-tag">§ Notice · 학부연구원생 모집</span>
+    <button type="button" class="notice-x" data-notice-close aria-label="닫기">×</button>
+  </div>
+  <div class="notice-scroll">
+    <h2 id="noticeTitle">학부연구원생 모집</h2>
+    <p class="notice-lead">물리적 지능으로 움직이는 로봇과 디바이스를 함께 만들 학생을 찾습니다.</p>
+
+    <div class="notice-body">
+      <p>AEIL은 이론적 해석을 바탕으로 물리적 특성을 이해하고, 환경을 스스로 인지하여 움직임을 조절하는 로봇과 디바이스를 연구합니다.
+        로봇·반도체·가전 현장에서의 30년 경험을 바탕으로, 이론이 실제 제품이 되기까지의 전 과정을 함께 경험합니다.</p>
+
+      <h3>연구 분야</h3>
+      <ul class="notice-areas">
+        <li><b>Perceive</b> 센싱 &amp; 인식 — 3D 입체 감지 센서, Haptic 센서 어레이, Semantic Mapping</li>
+        <li><b>Act</b> 정밀 모션 제어 — AI 네트워크 기반 정밀 모델링, 실시간 다축 고속 제어</li>
+        <li><b>Move</b> 내비게이션 — 일관성과 강건성을 강화한 SLAM, 동적·글로벌 경로설계</li>
+        <li><b>Think</b> Physical AI — Semantic VLA와 폐루프 동적 제어를 결합한 계층적 제어</li>
+      </ul>
+
+      <h3>이런 학생을 환영합니다</h3>
+      <ul>
+        <li>로봇·센서·제어·AI에 관심이 있는 학생</li>
+        <li>직접 만들고 실험하며 문제를 끝까지 풀어보고 싶은 학생</li>
+        <li>대학원 진학 또는 로봇·반도체·가전 분야 취업을 고민하는 학생</li>
+      </ul>
+
+      <h3>함께 얻게 되는 것</h3>
+      <div class="notice-chips">
+        <span>Research to Product</span><span>Cross-domain</span><span>Industry Fit</span>
+      </div>
+
+      <div class="notice-contact">
+        관심 있는 학생은 메일 또는 전화로 연락해 주세요.<br>
+        <b>지도교수</b> 김신 교수 ·
+        <a href="mailto:shinkim@gachon.ac.kr">shinkim@gachon.ac.kr</a> ·
+        <a href="tel:031-750-5877">031-750-5877</a><br>
+        <b>교수연구실</b> AI관 702호
+      </div>
+    </div>
+  </div>
+
+  <div class="notice-actions">
+    <button type="button" class="notice-btn-ghost" data-notice-hide-today>오늘 하루 보지 않기</button>
+    <button type="button" class="notice-btn" data-notice-close>닫기</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const NOTICE_ENABLED = true;
+    const KEY = "aeil-notice-hide-until";
+    const popup = document.getElementById("noticePopup");
+    if (!NOTICE_ENABLED || !popup) return;
+
+    let hideUntil = 0;
+    try { hideUntil = Number(localStorage.getItem(KEY)) || 0; } catch (e) {}
+    if (Date.now() < hideUntil) return;
+
+    const close = () => { popup.hidden = true; document.removeEventListener("keydown", onKey); };
+    const onKey = (e) => { if (e.key === "Escape") close(); };
+
+    popup.hidden = false;
+    document.addEventListener("keydown", onKey);
+    popup.querySelectorAll("[data-notice-close]").forEach((b) => b.addEventListener("click", close));
+
+    // ---- 제목 표시줄을 끌어서 창 이동 (마우스·터치 공통) ----
+    const bar = popup.querySelector("[data-notice-drag]");
+    let dx = 0, dy = 0, dragging = false;
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    const place = (x, y) => {
+      const maxX = window.innerWidth - popup.offsetWidth;
+      const maxY = window.innerHeight - bar.offsetHeight;
+      popup.style.left = clamp(x, 0, Math.max(0, maxX)) + "px";
+      popup.style.top = clamp(y, 0, Math.max(0, maxY)) + "px";
+    };
+    bar.addEventListener("pointerdown", (e) => {
+      if (e.target.closest("[data-notice-close]")) return;
+      const r = popup.getBoundingClientRect();
+      dx = e.clientX - r.left; dy = e.clientY - r.top; dragging = true;
+      bar.setPointerCapture(e.pointerId);
+      popup.classList.add("dragging");
+    });
+    bar.addEventListener("pointermove", (e) => { if (dragging) place(e.clientX - dx, e.clientY - dy); });
+    const stop = () => { dragging = false; popup.classList.remove("dragging"); };
+    bar.addEventListener("pointerup", stop);
+    bar.addEventListener("pointercancel", stop);
+    window.addEventListener("resize", () => {
+      if (popup.style.left) place(parseFloat(popup.style.left), parseFloat(popup.style.top));
+    });
+    popup.querySelector("[data-notice-hide-today]").addEventListener("click", () => {
+      const end = new Date(); end.setHours(23, 59, 59, 999);
+      try { localStorage.setItem(KEY, String(end.getTime())); } catch (e) {}
+      close();
+    });
+  })();
+</script>
+
 </body>
 </html>
