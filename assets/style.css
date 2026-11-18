@@ -1,5 +1,5 @@
 /* ============================================================
-   Applied Kinetics Lab — shared stylesheet
+   Applied Embodied Intelligence Lab — shared stylesheet
    모든 페이지(index, research, members, project, publications,
    lecture)가 이 파일 하나를 공유합니다.
    섹션마다 "사용:" 주석으로 어느 페이지에서 쓰는지 표시해 두었으니,
@@ -189,7 +189,7 @@ a{color:inherit;}
 }
 .hero-content{ flex:0 1 780px; max-width:780px; }
 .hero-logo{ margin-bottom:28px; }
-.hero-logo img{ height:180px; width:auto; display:block; }
+.hero-logo img{ width:100%; max-width:780px; height:auto; display:block; }
 .hero-eyebrow{
   font-family:'JetBrains Mono', monospace;
   font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase;
