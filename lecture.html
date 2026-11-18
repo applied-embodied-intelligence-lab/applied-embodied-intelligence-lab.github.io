@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture — Applied Kinetics Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-logo" href="index.html"><img src="assets/logo.jpg" alt="Applied Kinetics Lab"></a>
+    <div class="navbar-menu">
+      <div class="nav-item">
+        <a href="index.html" class="navbar-link">Home</a>
+      </div>
+      <div class="nav-item">
+        <a href="members.html" class="navbar-link">Members</a>
+        <div class="nav-dropdown">
+          <a href="members.html#professor">Professor</a>
+          <a href="members.html#students">Students</a>
+          <a href="members.html#visiting">초빙연구원</a>
+          <a href="members.html#alumni">Alumni</a>
+          <a href="members.html#recruiting">Recruiting</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="project.html" class="navbar-link">Research &amp; Project</a>
+        <div class="nav-dropdown">
+          <a href="project.html#vision-area">Research Vision &amp; Area</a>
+          <a href="project.html#ongoing">Ongoing Project</a>
+          <a href="project.html#track-record">Industry Track Record</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="publications.html" class="navbar-link">Publication &amp; Patent</a>
+        <div class="nav-dropdown">
+          <a href="publications.html#papers">Journal &amp; Conference Papers</a>
+          <a href="publications.html#patents">Patents</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="lecture.html" class="navbar-link active">Lecture</a>
+        <div class="nav-dropdown">
+          <a href="lecture.html#courses">Courses</a>
+          <a href="lecture.html#seminar">Seminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="page-header-inner">
+    <div class="tag">§ Lecture</div>
+    <h1>강의</h1>
+    <p>개설 강의와 세미나 소식을 안내합니다.</p>
+  </div>
+</header>
+
+<!-- ================= COURSES ================= -->
+<section class="panel" id="courses">
+  <div class="tag">§ Courses</div>
+  <h2 class="section-title">개설 강의</h2>
+  <p class="section-sub">2026년 2학기 개설하는 강의 목록입니다.</p>
+
+  <table class="simple-table">
+    <thead>
+      <tr><th>학기</th><th>과목명</th><th>구분</th><th>시간</th><th>문의시간</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="mono">2026-2</td><td>로봇공학개론</td><td>전공선택, 학부 2학년</td><td>월 09:00 ~ 11:00, 화 09:00~10:00</td><td>월 13:30 ~ 17:00</td></tr>
+      <tr><td class="mono">2026-2</td><td>자동제어</td><td>전공선택, 학부 3학년</td><td>화 13:00 ~ 15:00, 수 09:00~10:00</td><td>수 13:30 ~ 17:00</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= SEMINAR ================= -->
+<section class="panel" id="seminar">
+  <div class="tag">§ Seminar</div>
+  <h2 class="section-title">연구실 세미나</h2>
+  <p class="section-sub">연구실 정기 세미나 및 초청 세미나 일정을 안내합니다. 제목을 누르면 자료를 받을 수 있습니다.</p>
+  <div id="seminarContainer"></div>
+</section>
+
+<footer>
+  <div class="mono">Applied Kinetics Lab · Lecture</div>
+  <a class="contact-link" href="index.html">Home으로 →</a>
+</footer>
+
+<script>
+  // ---- 세미나 데이터 --------------------------------------------------
+  // 세미나가 정해지면 아래 배열에 항목을 추가하세요.
+  // { title, date, location, speaker, file(assets/seminar/ 안의 PDF 경로) }
+  const seminars = [
+     { title: "이동로봇 SLAM 최신 동향", date: "2026-10-06 (화) 16:00",
+       location: "가천대학교 공학관 401호", speaker: "아무개",
+       file: "assets/seminar/2026-10-06_slam-trends.pdf" },
+     { title: "이동로봇 SLAM 최신 동향2", date: "2026-10-07 (화) 16:00",
+       location: "가천대학교 공학관 401호", speaker: "그사람",
+       file: "assets/seminar/2026-10-06_slam-trends.pdf" },
+  ];
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str == null ? "" : String(str);
+    return div.innerHTML;
+  }
+
+  // fetch(HEAD)로 세미나 자료 파일 존재 여부를 확인해, 있으면 제목을
+  // 다운로드 링크로, 없으면 제목 옆에 "파일없음"을 표시합니다.
+  async function checkSeminarFile(url, id, title) {
+    let ok = false;
+    try {
+      const res = await fetch(url, { method: "HEAD", cache: "no-store" });
+      ok = res.ok;
+    } catch (e) {
+      ok = false;
+    }
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (ok) {
+      el.innerHTML = `<a href="${url}" class="sem-title" target="_blank" rel="noopener">${escapeHtml(title)}</a>`;
+    } else {
+      el.innerHTML = `<span class="sem-title sem-title-missing">${escapeHtml(title)}</span> <span class="file-missing">파일없음</span>`;
+    }
+  }
+
+  function renderSeminars() {
+    const container = document.getElementById("seminarContainer");
+    if (!seminars.length) {
+      container.innerHTML = `<div class="tbd"><span class="mono">Coming soon</span>아직 예정된 세미나가 없습니다. 일정이 정해지면 이곳에 안내됩니다.</div>`;
+      return;
+    }
+    const ids = seminars.map((_, i) => "sf" + i);
+    container.innerHTML = `<div class="seminar-list">` + seminars.map((s, i) => `
+        <div class="seminar-item">
+          <div id="${ids[i]}">${escapeHtml(s.title)}</div>
+          <div class="sem-meta">
+            <span>${escapeHtml(s.speaker || "")}</span>
+            <span>${escapeHtml(s.date || "")}</span>
+            <span>${escapeHtml(s.location || "")}</span>
+          </div>
+        </div>`).join("") + `</div>`;
+    seminars.forEach((s, i) => checkSeminarFile(s.file, ids[i], s.title));
+  }
+
+  renderSeminars();
+</script>
+
+</body>
+</html>

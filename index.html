@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Kinetics Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-logo" href="index.html"><img src="assets/logo.jpg" alt="Applied Kinetics Lab"></a>
+    <div class="navbar-menu">
+      <div class="nav-item">
+        <a href="index.html" class="navbar-link active">Home</a>
+      </div>
+      <div class="nav-item">
+        <a href="members.html" class="navbar-link">Members</a>
+        <div class="nav-dropdown">
+          <a href="members.html#professor">Professor</a>
+          <a href="members.html#students">Students</a>
+          <a href="members.html#visiting">Visiting Researchers</a>
+          <a href="members.html#alumni">Alumni</a>
+          <a href="members.html#recruiting">Recruiting</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="project.html" class="navbar-link">Research &amp; Project</a>
+        <div class="nav-dropdown">
+          <a href="project.html#vision-area">Research Vision &amp; Area</a>
+          <a href="project.html#ongoing">Ongoing Project</a>
+          <a href="project.html#track-record">Industry Track Record</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="publications.html" class="navbar-link">Publication &amp; Patent</a>
+        <div class="nav-dropdown">
+          <a href="publications.html#papers">Journal &amp; Conference Papers</a>
+          <a href="publications.html#patents">Patents</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="lecture.html" class="navbar-link">Lecture</a>
+        <div class="nav-dropdown">
+          <a href="lecture.html#courses">Courses</a>
+          <a href="lecture.html#seminar">Seminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-logo"><img src="assets/Biglogo.png" alt="Applied Kinetics Lab logo"></div>
+      <div class="hero-eyebrow"><b>Since 2026.09.01</b> · Applied Kinectics Lab (A-Kin Lab)</div>
+      <h1> 움직임을 <span>분석</span>하여<br>유용한 <span>응용 서비스</span>를 만듭니다</h1>
+      <p class="hero-sub">Applied Kinetics Lab에서는 움직이는 모든 디바이스들을 연구의 대상으로 합니다.
+        움직이는 메커니즘을 모델링하고 분석하지만, 수식이 아닌 숫자가 갖는 물리적인 의미를 찾아내고,
+        이를 바탕으로 세상에 도움되는 다양한 응용 서비스 기술을 연구합니다.
+        사람의 물리적 능력을 돕도록 하고, 움직임이 주변과 안전하게 상호작용하게 하고,
+        스스로의 위치와 상태를 인지하여, 지능적으로 움직이게 하는 기술을 연구합니다.
+        다양한 서비스로봇 개발과 반도체 생산설비 그리고 본격적인 가정용 청소로봇의 양산까지 이어진
+        30년간의 현장 경험을 바탕으로, 이론과 산업을 잇는 운동역학분야의 새로운 Application을 제시합니다.</p>
+    </div>
+    <div class="hero-visual">
+      <svg class="traj" viewBox="0 0 700 800" preserveAspectRatio="xMidYMid meet">
+        <!-- 이동 궤적 (그려지는 트레일) -->
+        <path class="trail" d="M 75 640 C 110 590, 150 580, 190 560 C 260 550, 320 575, 385 575 C 450 575, 500 590, 545 600 C 595 610, 630 570, 640 490 C 648 430, 625 340, 600 260" fill="none" stroke="#00D9A3" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- 장애물 -->
+        <rect class="obstacle" x="400" y="380" width="120" height="90" rx="10" fill="rgba(245,243,236,0.05)" stroke="#F5F3EC" stroke-width="2" stroke-dasharray="6 6" opacity="0.55"/>
+
+        <!-- 출발점 / 목적지 -->
+        <circle cx="75" cy="640" r="9" fill="#E8823C"/>
+        <circle cx="600" cy="260" r="9" fill="#E8823C"/>
+
+        <!-- 이동형 매니퓰레이터 + 집는 물체 (반복 애니메이션, 경계에서 페이드) -->
+        <g class="scene">
+          <circle class="pickup-obj" r="12" fill="#E8823C">
+            <animateMotion dur="8s" repeatCount="indefinite" begin="0s"
+              keyPoints="0;0;1;1" keyTimes="0;0.38;0.85;1" calcMode="linear"
+              path="M 190 560 C 260 550, 320 575, 385 575 C 450 575, 500 590, 545 600 C 595 610, 630 570, 640 490 C 648 430, 625 340, 600 260"/>
+          </circle>
+
+          <g class="robot">
+            <circle class="base" r="30" fill="#00D9A3"/>
+            <rect class="base-accent" x="-22" y="-6" width="16" height="7" rx="2" fill="#0B1220" opacity="0.35" transform="rotate(-30)"/>
+            <rect class="base-accent" x="6" y="10" width="16" height="7" rx="2" fill="#0B1220" opacity="0.35" transform="rotate(-30)"/>
+            <g class="arm">
+              <line x1="8" y1="-6" x2="34" y2="-30" stroke="#F5F3EC" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="8" cy="-6" r="5" fill="#F5F3EC"/>
+              <line x1="34" y1="-30" x2="52" y2="-50" stroke="#F5F3EC" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="34" cy="-30" r="5" fill="#F5F3EC"/>
+              <path class="gripper" d="M 52 -50 L 45 -59 M 52 -50 L 61 -57" stroke="#F5F3EC" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </g>
+            <animateMotion dur="8s" repeatCount="indefinite" begin="0s"
+              keyPoints="0;0;0.22;0.22;1;1;1" keyTimes="0;0.06;0.28;0.38;0.85;0.95;1" calcMode="linear"
+              path="M 75 640 C 110 590, 150 580, 190 560 C 260 550, 320 575, 385 575 C 450 575, 500 590, 545 600 C 595 610, 630 570, 640 490 C 648 430, 625 340, 600 260"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WELCOME ================= -->
+<section class="panel" id="welcome">
+  <div class="tag">§ Welcome</div>
+  <h2 class="section-title">Welcome to Applied Kinetics Lab.</h2>
+  <p class="section-sub">
+    "움직임"은 다양한 구동 메커니즘과 감지센서를 통해 구현됩니다. 겉으로 보이는 메커니즘과 센서들로 움직임이 드러나
+    보이지만, 복잡한 환경에서 정밀한 움직임을 보여주기 위해서는 보이는 것 아래에서 움직임을 지배하는
+    보다 더 근복적인 물리적 특성을 이해해야 합니다.
+    본 연구실은 Deep Learning Network를 포함한 다양한 모델링 방법을 통해 
+    이 근복적인 특성을 이해하고 이를 바탕으로 문제의 본질을 분석합니다.
+    이를 위해 많은 리소스를 투입하는 것을 주저하지 않습니다.
+    그러나 해결책도 많은 리소스가 필요하면 안됩니다. 해결책은 단순하고 명료해야 하며 손쉽게 구현되어저야 합니다.
+    우리는 본질적인 분석을 통해 이러한 해결책을 얻을 수 있을 것이라 믿고, 이와 같은 해결책들을 찾아내어 "움직임"이 주는
+    다양한 유용한 응용 서비스를 발굴해 나갑니다.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="k">Area 01 · Sensing & Recognition</div>
+      <div class="v">Environment 3D Sensing & Modeling</div>
+      <div class="d">3D 입체 감지 센서 개발, 표면 속성 인식이 가능한 Haptic 센서 Array개발, Semantic Mapping</div>
+    </div>
+    <div class="card">
+      <div class="k">Area 02 · Precise Motion Control</div>
+      <div class="v">AI Network-based 정밀 모션 제어</div>
+      <div class="d">정밀 모델링 기반 저강성체 고정밀 제어, 실시간 다축 고속 제어</div>
+    </div>
+    <div class="card">
+      <div class="k">Area 03 · Navigation</div>
+      <div class="v">일관성과 강건성 강화된 SLAM · Dynamic/글로벌 경로설계</div>
+      <div class="d">SLAM의 공분산 오차 전파 모델링을 통한 일관성과 강건성 개선, 로봇 매니퓰레이터와 이동체의 Dynamic/글로벌 경로설계</div>
+    </div>
+    <div class="card">
+      <div class="k">Area 04 · AI</div>
+      <div class="v">Hierarchical control for Physical AI</div>
+      <div class="d">Semantic VLA + Closed loop dynamic control, Action chunking과 임피던스 제어기의 결합</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECRUITING CALLOUT ================= -->
+<section class="panel" id="recruiting">
+  <div class="callout-box">
+    <div class="content">
+      <div class="tag">§ Members</div>
+      <h2 class="section-title">2026년 2학기부터 함께할 대학원생을 찾습니다</h2>
+      <p>연구실에서 배우는 이론이 실제 제품이 되기까지의 전 과정을 함께 경험할 학부연구원생 및 대학원생을 모집합니다. 학문적인 연구와 함께, 로봇·반도체·가전을 넘나드는 문제 해결 방법과 연구 성과를 제품으로 연결하는 실무 감각을 함께 훈련합니다.</p>
+      <div class="callout-tags">
+        <span>학·석·박사 과정 모집</span><span>Problem Solving</span><span>Research to Product</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="mono">Applied Kinetics Lab · Shin Kim</div>
+  <a class="contact-link" href="members.html">교수 소개 및 문의 →</a>
+</footer>
+
+</body>
+</html>
